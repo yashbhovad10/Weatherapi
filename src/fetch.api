@@ -1,0 +1,64 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+
+const Showpost = () => {
+  let { post_title } = useParams();
+  
+  let api = "https://jsonplaceholder.typicode.com/posts";
+
+  fetch(api)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+  
+      Showpost(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  return (
+    <>
+      <h1>Show post {post_title}</h1>
+    </>
+  );
+};
+
+export default Showpost;
+
+
+
+
+app.jsx
+import React from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import Home from "./Home";
+import About from "./About";
+import Contact from "./Contact";
+import Navbar from "./navbar";
+import Fetchapi from "./fetchapi";
+import Showpost from "./showpost";
+import  data  from "./data";
+
+
+
+const App = () => {
+  return (    
+    <>
+      <Router>
+        <Navbar/>
+          <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="about/" element={<About />} />
+          <Route path="contact/" element={<Contact />} />
+          <Route path="posts/" element={<Fetchapi />} />
+          <Route path="/post/show/:id" element={<Showpost />} />
+          <Route path="data/" element={<data/>}/>
+          
+        </Routes>
+      </Router>
+    </>
+  );
+};
+
+export default App;
